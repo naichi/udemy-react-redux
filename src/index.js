@@ -1,10 +1,17 @@
-export const INCREMENT = 'INCREMENT'
-export const DECREMENT = 'DECREMENT'
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
 
-export const increment = () => ({
-    type: INCREMENT
-})
+import './index.css';
+import reducer from './reducers';
+import App from './components/App';
 
-export const decrement = () => ({
-    type: DECREMENT
-})
+const store = createStore(reducer)
+
+ReactDOM.render(
+    <Provider store={store}>
+        < App />
+    </Provider>,
+    document.getElementById('root')
+);
