@@ -5,6 +5,8 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import { BrowserRouter, Route, Switch } from "react-router-dom"
 import { composeWithDevTools } from 'redux-devtools-extension'
+// MuiThemeProvider MaterialUI ってのがJqueryのBootStrapに該当する感じのあれらしい
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
 import './index.css';
 import reducer from './reducers';
@@ -18,17 +20,20 @@ const enhancer = process.env.NODE_ENV === 'development' ?
 const store = createStore(reducer, applyMiddleware(thunk))
 
 // Routing 内でのexact はRoutingの条件を若干厳しくするような感じの文言っていうイメージ
+// <MuiThemeProvider>で既存のcomponentをwrapするだけで使えるようになる
 ReactDOM.render(
-    <Provider store={store}>
-        <BrowserRouter>
-            <Switch>
-                <Route path="/events/new" component={EventsNew} />
-                <Route path="/events/:id" component={EventsShow} />
-                <Route exact path="/" component={EventsIndex} />
-                <Route exact path="/events" component={EventsIndex} />
-                
-            </Switch>
-        </BrowserRouter>
-    </Provider>,
-    document.getElementById('root')
-);
+    <MuiThemeProvider>
+        <Provider store={store}>
+            <BrowserRouter>
+                <Switch>
+                    <Route path="/events/new" component={EventsNew} />
+                    <Route path="/events/:id" component={EventsShow} />
+                    <Route exact path="/" component={EventsIndex} />
+                    <Route exact path="/events" component={EventsIndex} />
+                    
+                </Switch>
+            </BrowserRouter>
+        </Provider>
+    </MuiThemeProvider>,
+        document.getElementById('root')
+    );
