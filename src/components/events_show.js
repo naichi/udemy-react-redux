@@ -84,7 +84,8 @@ const mapStateToProps = (state, ownProps) => {
 // componentにactionの関数をbindする
 const mapDispatchToProps = ({ deleteEvent, getEvent, putEvent })
 
+// enableReinitializeがfalseだったら、他ユーザーが利用している場合の情報更新の際に齟齬が生じる可能性がある
+// true の場合は他ページに遷移する場合に元あった情報(メモリ)を参照することがなくなるため、この辺の齟齬の危険性がなくなる
 export default connect(mapStateToProps, mapDispatchToProps)(
   reduxForm({ validate, form: 'eventShowForm', enableReinitialize: true })(EventsShow)
-
 )
